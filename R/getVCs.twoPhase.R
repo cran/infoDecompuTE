@@ -1,8 +1,6 @@
 getVCs.twoPhase <-
 function(design.df, random.terms1, random.terms2, fixed.terms, var.comp = NA, trt.contr = NA, table.legend = FALSE){
-   
-  library(MASS)   #need this package to perform ginv and factions functions
- 
+
 #######################################################################################  
   #All the pre-initiated functions   
   projMat <- function(X) X %*% ginv(t(X) %*% X) %*% t(X)  #projection matrix

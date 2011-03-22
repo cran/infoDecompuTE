@@ -1,46 +1,47 @@
 \name{getVCs.twoPhase}
 \alias{getVCs.twoPhase}
 \title{
-Get the Variance Components of the Two Phase Experiments
+Get the Variance Components of Two-Phase Experiments
 }
 \description{
-Computes the coefficients of the variance components for the expected mean squares for the two phase experiments. Inputting a data frame of a design with the relationships of the block and treatment factors, it returns two tables containing the variance components of the random effects and fixed effects.  
+Computes the coefficients of the variance components for the expected mean squares for two-phase experiments. The function accepts a data frame of the experimetnal design with the structural formulae of the block and treatment factors. Two tables containing the variance components of the random effects and fixed effects are returned.  
 }
 \usage{
-getVCs.twoPhase(design.df, random.terms1, random.terms2, fixed.terms, var.comp = NA, trt.contr = NA, table.legend = FALSE)
+getVCs.twoPhase(design.df, random.terms1, random.terms2, fixed.terms,
+                var.comp = NA, trt.contr = NA, table.legend = FALSE)
 }
 \arguments{
  \item{design.df}{
-the data frame contains the design of the experiment. 
+a data frame containing the design of the experiment. 
 }
  \item{random.terms1}{
-the single string of characters contains the structural formula for the block factors of the first phase using the Wilkinson-Rogers' syntax. 
+a single string of characters containing the structural formula for the block factors of the first-phase experiment using the Wilkinson-Rogers' syntax. 
 }
   \item{random.terms2}{
-the single string of characters contains the structural formula for the block factors of the second phase using the Wilkinson-Rogers' syntax. 
+a single string of characters containing the structural formula for the block factors of the second-phase experiment using the Wilkinson-Rogers' syntax. 
 }
-  \item{fixed.terms}{
-the single string of characters contains the structural formula for the treatment factors using the Wilkinson-Rogers' syntax. 
+   \item{fixed.terms}{
+a single string of characters containing the structural formula for the treatment factors using the Wilkinson-Rogers' syntax. 
 }
   \item{var.comp}{
-the vector of characters contains the variance components of interest this allows the user to specify the variance components to be shown on the ANOVA table. This also allows the user to specify artificial stratum to facilitate decomposition. Default is NA, which uses every random factor as the variance components with the 1st phase's variance components appear before the 2nd phase's variance components.
+a vector of characters containing the variance components of interest this allows the user to specify the variance components to be shown on the ANOVA table. This also allows the user to specify artificial stratum to facilitate decomposition. Default is \code{NA}, which uses every random factor as the variance components with the first phase's variance components in \code{random.terms1} appear before the second phase's variance components in \code{random.terms2}.
 }
   \item{trt.contr}{
-the list of treatment contrast matrices, this allows the user to specify the contrasts for each treatment factor. Note that if the user uses this parameter, they need to specify the contrasts for every treatment factor with the same order as \code{fixed.terms}. Default is NA, which uses the C matrix described by John and Williams (1987).
+a list of treatment contrast matrices, this allows the user to specify the contrasts for each treatment factor. Note that if this arguement is used, it is necessary to specify the contrasts for every treatment factor with the same order as \code{fixed.terms}. Default is \code{NA}, which uses the C matrix described by John and Williams (1987).
 }
   \item{table.legend}{
- the logical, allow the users to using the lengend for the variance compoenents of the ANOVA table for a large design. Default is FALSE, which uses the orignal names.    
+a boolean allows the users to use the legend for the variance components of the ANOVA table for a large design. Default is \code{FALSE}, which uses the original names.  
 }
 }
 \value{
-  The values returned depends wether \code{table.legend} arguement has specified. If it has not, this function will return a list of two data frames. The first data frame contains the random effects and the second data frame contains the fixed effects. If the \code{table.legend}  arguement has sepcified, then it will return a list containing two lists. The first list consists of a data frame of random effects and a character string for the legend. The second list consists of a data frame of fixed effects and a character string for the legend.
+ The values returned depends on the value of the \code{table.legend} arguement. If \code{table.legend = FALSE}, this function will return a list of two data frames. The first data frame contains the random effects and the second data frame contains the fixed effects. If the \code{table.legend} arguement is \code{TRUE}, then it will return a list containing two lists. The first list consists of a data frame of random effects and a character string for the legend. The second list consists of a data frame of fixed effects and a character string for the legend.
 }
 
 \references{
 John J, Williams E (1987). \emph{Cyclic and computer generated Designs}. Second edition. Chapman
 & Hall.
 
-Nelder JA (1965b). "The Analysis of Randomized Experiments with Orthogonal Block Structure. II. Treatment Structure and the General Analysis of Variance." \emph{Proceedings of the Royal Society of London. Series A, Mathematical and Physical Sciences}, 283(1393), 163- 178.
+Nelder JA (1965b). "The Analysis of Randomized Experiments with Orthogonal Block Structure. II. Treatment Structure and the General Analysis of Variance." \emph{Proceedings of the Royal Society of London. Series A, Mathematical and Physical Sciences}, 283(1393), 163-178.
 
 Wilkinson GN, Rogers CE (1973). "Symbolic Description of Factorial Models for Analysis of Variance." \emph{Applied Statistics}, 22(3), 392-399.
 }
