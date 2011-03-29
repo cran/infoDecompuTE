@@ -13,7 +13,7 @@ getVCs.onePhase(design.df, random.terms, fixed.terms, var.comp = NA,
 
 \arguments{
   \item{design.df}{
-a data frame containing the design of the experiment. 
+a data frame containing the design of the experiment. Every column must be factors. 
 }
   \item{random.terms}{
 a single string of characters containing the structural formula for the block factors using the Wilkinson-Rogers' syntax. 

@@ -477,15 +477,15 @@ write("6. Pre- and post-multiply NTginvATN by block projection matrices.", "")
     V <- lapply(makeBlkDesMatrix(design.df, var.comp), function(x) x %*% t(x))
   }
    
-   VC <-character(length(V))
-   names(VC)  = names(V)
-   VC = t(data.frame(VC))
-   
+  VC <-rep("1",length(V)+1)
+  names(VC)  = c("DF", names(V))
+  VC = t(data.frame(VC))
+ 
     
 ##############################################################################################################  
 write("7. Get coefficients of each source of variation for the random effects,", "")
     for(i in 1:length(PNTginvATNP)){
-      VC = rbind(VC, character(length = length(V)))
+      VC = rbind(VC, character(length = length(V) + 1))
       if( names(PNTginvATNP[i]) =="Within"){
         rownames(VC)[nrow(VC)] = paste(names(PNTginvATNP[i]), sep = " ")
       }else{
@@ -503,18 +503,18 @@ write("7. Get coefficients of each source of variation for the random effects,",
         }       
  
       if(nrow(tmp) == 1 && rownames(tmp) == "Residual"){
-        tmp = c(tmp[1], tmp[-1]/tmp[1])  
+        tmp = c(tmp[1], tmp/tmp[1])  
         VC = rbind(VC, attr(fractions(tmp),"fracs")) 
         if(names(PNTginvATNP[[i]][k]) == "Residual"  && length(PNTginvATNP[[i]]) > 1){
           rownames(VC)[nrow(VC)] =  paste("  ", names(PNTginvATNP[[i]][k]), sep = " ")
-        }else if(names(PNTginvATNP[[i]][k]) == "Residual" && length(PNTginvATNP[[i]]) == 2){
-          rownames(VC)[nrow(VC)] = paste("Between", names(PNTginvATNP[[i]][k]), sep = " ")
+        }else if(names(PNTginvATNP[[i]][k]) == "Residual" && length(PNTginvATNP[[i]]) == 1){
+          rownames(VC)[nrow(VC)] = paste("Between", names(PNTginvATNP[i]), sep = " ")
           VC = VC[-(nrow(VC)-1),]
         }else{
           rownames(VC)[nrow(VC)] = paste("   Between", names(PNTginvATNP[[i]][k]), sep = " ")
         }
       }else{
-        VC = rbind(VC, character(length = length(V)))
+        VC = rbind(VC, character(length = length(V)+1))
         
         if(names(PNTginvATNP[[i]][k]) == "Residual"){
           rownames(VC)[nrow(VC)] =  paste("  ", names(PNTginvATNP[[i]][k]), sep = " ")
@@ -523,14 +523,18 @@ write("7. Get coefficients of each source of variation for the random effects,",
         }         
         rownames(tmp) = paste("     ", rownames(tmp), sep = " ")
         
-        tmp = t(apply(tmp, 1, function(x) attr(fractions(c(x[1], x[-1]/x[1])),"fracs")))
+        tmp = t(apply(tmp, 1, function(x) attr(fractions(c(x[1], x/x[1])),"fracs")))
         VC = rbind(VC, tmp)
       }
     }
    }
   
-   colnames(VC)[1] = "DF"
-   VC = noquote(VC[-1,])   
+  if(length((which(apply(apply(VC[,-1], 2, function(x) x==VC[,"e"]), 2, all))))>1){
+    VC = noquote(VC[-1,-2])
+   } else{
+    VC = noquote(VC[-1,])   
+   }
+
     
    if(table.legend){
     Legend = paste(paste( letters[1:(length(colnames(VC))-1)],colnames(VC)[-1], sep = " = "))
@@ -558,9 +562,9 @@ write("   and for fixed effects.", "")
       
      for(k in 1:length(effFactors[[i]])){
       trt = rbind(trt, character(length = length(T)*2))
-      
-      if( names(effFactors[[i]][k]) =="Residual"){
-      
+      if(names(effFactors[[i]][k]) =="Residual" && length(effFactors[[i]]) == 1){
+        trt = trt[-(nrow(trt)),]
+      }else if( names(effFactors[[i]][k]) =="Residual"){
         rownames(trt)[nrow(trt)] = paste(" ",names(effFactors[[i]][k]), sep = " ")
       }else{
         rownames(trt)[nrow(trt)] = paste("  Between", names(effFactors[[i]][k]), sep = " ")

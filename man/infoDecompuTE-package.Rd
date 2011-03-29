@@ -12,8 +12,8 @@ Description: InfoDecompuTE is capable of generating the structure of the analysi
 \tabular{ll}{
 Package: \tab infoDecompuTE\cr
 Type: \tab Package\cr
-Version: \tab 0.3\cr
-Date: \tab 2011-03-22\cr
+Version: \tab 0.3.1\cr
+Date: \tab 2011-03-28\cr
 License: \tab GPL (>= 3) \cr
 LazyLoad: \tab yes\cr
 }

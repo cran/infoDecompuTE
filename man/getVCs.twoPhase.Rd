@@ -12,7 +12,7 @@ getVCs.twoPhase(design.df, random.terms1, random.terms2, fixed.terms,
 }
 \arguments{
  \item{design.df}{
-a data frame containing the design of the experiment. 
+a data frame containing the design of the experiment. Every column must be factors. 
 }
  \item{random.terms1}{
 a single string of characters containing the structural formula for the block factors of the first-phase experiment using the Wilkinson-Rogers' syntax. 
