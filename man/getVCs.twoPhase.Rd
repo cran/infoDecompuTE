@@ -55,22 +55,21 @@ Kevin Chang
 }
 
 \examples{
-design <- local({ 
+design2 <- local({ 
   Run = as.factor(rep(1:4, each = 4))
   Ani = as.factor(LETTERS[c(1,2,3,4,
                             5,6,7,8,
                             3,4,1,2,
                             7,8,5,6)])
-  Sam = as.factor(as.numeric(duplicated(Ani)) + 1)
   Tag = as.factor(c(114,115,116,117)[rep(1:4, 4)])
   Trt = as.factor(letters[c(1,2,1,2,
                             2,1,2,1,
                             1,2,1,2,
                             2,1,2,1)])
-  data.frame(Run, Ani, Sam, Tag, Trt)
+  data.frame(Run, Ani, Tag, Trt)
 })
 
-getVCs.twoPhase(design, random.terms1 = "Ani/Sam", random.terms2 = "Run", 
+getVCs.twoPhase(design2, random.terms1 = "Ani", random.terms2 = "Run", 
 fixed.terms = "Trt + Tag")                                    
 
 }

@@ -378,7 +378,7 @@ makeTreatProjectors <- function(design.df, trtCols, effectsMatrix, trt.contr){
         names(effFactors[[1]]) = names(T)
         for(i in 1:nEffect){
           va = Re(eigen(T[[i]] %*% t(N) %*% PNTginvATNP[[1]] %*% N %*% T[[i]])$va)
-          effFactors[[1]][[i]] = mean(va[which(va>1e-6)]/Rep[names(T[i])])
+          effFactors[[1]][[i]] = 1/mean(Rep[names(T[i])]/va[which(va>1e-6)])
         } 
       }
       
@@ -393,7 +393,7 @@ makeTreatProjectors <- function(design.df, trtCols, effectsMatrix, trt.contr){
            names(effFactors[[i]]) = names(T)
           for(j in 1:nEffect){
              va = Re(eigen(T[[j]] %*% t(N) %*% PNTginvATNP[[i]] %*% N %*% T[[j]])$va)
-            effFactors[[i]][[j]] =mean(va[which(va>1e-6)]/Rep[names(T[j])])
+            effFactors[[i]][[j]] = 1/mean(Rep[names(T[j])]/va[which(va>1e-6)])
           }
           newZ = (newZ %*% t(newZ)) - PNTginvATNP[[i]]
         }

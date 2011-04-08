@@ -3,17 +3,17 @@
 \alias{infoDecompuTE}
 \docType{package}
 \title{
-Computation of the Coefficients of the Variance Components for the Expected Mean Squares 
+Information Decomposition of Two-phase Experiments
 }
 \description{         
-Description: InfoDecompuTE is capable of generating the structure of the analysis of variance (ANOVA) table of the two-phase experiments. By inputting the design and the relationships of the random and fixed factors using the Wilkinson-Rogers' syntax, infoDecompuTE can generate the structure of the ANOVA table with the coefficients of the variance components for the expected mean squares. This package can also study the balanced incomplete block design and provides the efficiency factors of the fixed effects.
- }
+InfoDecompuTE is capable of generating the structure of the analysis of variance (ANOVA) table of the two-phase experiments. By inputting the design and the relationships of the random and fixed factors using the Wilkinson-Rogers' syntax, infoDecompuTE can generate the structure of the ANOVA table with the coefficients of the variance components for the expected mean squares. This package can also study the balanced incomplete block design and provides the efficiency factors of the fixed effects. 
+}
 \details{
 \tabular{ll}{
 Package: \tab infoDecompuTE\cr
 Type: \tab Package\cr
-Version: \tab 0.3.1\cr
-Date: \tab 2011-03-28\cr
+Version: \tab 0.3.2\cr
+Date: \tab 2011-04-07\cr
 License: \tab GPL (>= 3) \cr
 LazyLoad: \tab yes\cr
 }

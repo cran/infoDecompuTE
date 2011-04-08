@@ -54,22 +54,15 @@ Kevin Chang
 }
 
 \examples{
-design <- local({ 
-  Run = as.factor(rep(1:4, each = 4))
+design1 <- local({ 
   Ani = as.factor(LETTERS[c(1,2,3,4,
-                            5,6,7,8,
-                            3,4,1,2,
-                            7,8,5,6)])
-  Sam = as.factor(as.numeric(duplicated(Ani)) + 1)
-  Tag = as.factor(c(114,115,116,117)[rep(1:4, 4)])
-  Trt = as.factor(letters[c(1,2,1,2,
-                            2,1,2,1,
-                            1,2,1,2,
-                            2,1,2,1)])
-  data.frame(Run, Ani, Sam, Tag, Trt)
+                            5,6,7,8)])
+  Trt = as.factor(letters[c(1,1,1,1,
+                            2,2,2,2)])
+  data.frame(Ani, Trt)
 })
 
-getVCs.onePhase(design, random.terms = "Ani/Sam", fixed.terms = "Trt") 
+getVCs.onePhase(design1, random.terms = "Ani", fixed.terms = "Trt") 
                                 
 } 
 
