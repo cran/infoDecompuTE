@@ -1,16 +1,16 @@
-\name{getVCs.twoPhase}
-\alias{getVCs.twoPhase}
+\name{summaryAovTwoPhase}
+\alias{summaryAovTwoPhase}
+
 \title{
-Get the Variance Components of Two-Phase Experiments
+Summarize an Theotrical Analysis of Variance Model of Two-Phase Experiments
 }
 \description{
 Computes the coefficients of the variance components for the expected mean squares for two-phase experiments. The function accepts a data frame of the experimetnal design with the structural formulae of the block and treatment factors. Two tables containing the variance components of the random effects and fixed effects are returned.  
 }
 \usage{
-getVCs.twoPhase(design.df, blk.str1, blk.str2, trt.str, var.comp = NA, 
-                blk.contr = NA, trt.contr = NA, 
-                contr.matrix = all(is.na(trt.contr)),  table.legend = FALSE)
+summaryAovTwoPhase(design.df, blk.str1, blk.str2, trt.str, var.comp = NA, blk.contr = NA, trt.contr = NA, contr.matrix = all(is.na(trt.contr)), table.legend = FALSE, response = NA, latex = FALSE, fixed.names=NA)
 }
+%- maybe also 'usage' for other objects documented here.
 \arguments{
  \item{design.df}{
 a data frame containing the design of the experiment. Every column must be factors. 
@@ -34,17 +34,25 @@ a list of first-phase block contrast vectors, this allows the user to specify th
 a list of treatment contrast vectors, this allows the user to specify the contrasts for each treatment factor. Note that if this arguement is used, it is necessary to specify the contrasts for every treatment factor with the same order as \code{fixed.terms}. Default is \code{NA}, which uses the C matrix described by John and Williams (1987).
 }
  \item{contr.matrix}{
-a boolean allows the users to use the contrast matrices or contrast vectors. If \code{contr.matrix = FALSE}, the outputs will use the contrast vectors each contributes one DF.  If the \code{contr.matrix} arguement is \code{TRUE} the output will conbine the contrast vector for each treatment factors. The default depends on whether \code{trt.contr} has defined, if \code{trt.contr} has defined, then \code{contr.matrix} becomes \code{FALSE}.  
-}
-
+a logical allows the users to use the contrast matrices or contrast vectors. If \code{contr.matrix = FALSE}, the outputs will use the contrast vectors each contributes one DF.  If the \code{contr.matrix} arguement is \code{TRUE} the output will conbine the contrast vector for each treatment factors. The default depends on whether \code{trt.contr} has defined, if \code{trt.contr} has defined, then \code{contr.matrix} becomes \code{FALSE}.  
+}    
   \item{table.legend}{
-a boolean allows the users to use the legend for the variance components of the ANOVA table for a large design. Default is \code{FALSE}, which uses the original names.  
+a logical allows the users to use the legend for the variance components of the ANOVA table for a large design. Default is \code{FALSE}, which uses the original names.  
+}   
+  \item{response}{
+a numeric vector contains the responses from the experiment. 
+}
+ \item{latex}{
+a logical allows the users to output the Latex script to Latex table. 
+}
+  \item{fixed.names}{
+a vector of character allows the users to modify symbols for the fixed effects.
 }
 }
 \value{
- The values returned depends on the value of the \code{table.legend} arguement. If \code{table.legend = FALSE}, this function will return a list of two data frames. The first data frame contains the random effects and the second data frame contains the fixed effects. If the \code{table.legend} arguement is \code{TRUE}, then it will return a list containing two lists. The first list consists of a data frame of random effects and a character string for the legend. The second list consists of a data frame of fixed effects and a character string for the legend.
+The values returned depends on the value of the \code{table.legend} arguement. If \code{table.legend = FALSE}, this function will return a list of two data frames. The first data frame contains the random effects and the second data frame contains the fixed effects. If the \code{table.legend} arguement is \code{TRUE}, then it will return a list containing two lists. The first list consists of a data frame of random effects and a character string for the legend. The second list consists of a data frame of fixed effects and a character string for the legend.
+ If \code{response} arguement is used, the random effect table will have one extra column with of mean squares computed from the responses from the experiment.
 }
-
 \references{
 John J, Williams E (1987). \emph{Cyclic and computer generated Designs}. Second edition. Chapman
 & Hall.
@@ -53,15 +61,13 @@ Nelder JA (1965b). "The Analysis of Randomized Experiments with Orthogonal Block
 
 Wilkinson GN, Rogers CE (1973). "Symbolic Description of Factorial Models for Analysis of Variance." \emph{Applied Statistics}, 22(3), 392-399.
 }
-
-\seealso{
-\code{\link{terms}} for more information on the structural formula.
-}
-
 \author{
 Kevin Chang
 }
 
+\seealso{
+\code{\link{terms}} for more information on the structural formula.
+}
 \examples{
 design2 <- local({ 
   Run = as.factor(rep(1:4, each = 4))
@@ -77,9 +83,17 @@ design2 <- local({
   data.frame(Run, Ani, Tag, Trt)
 })
 
-getVCs.twoPhase(design2, blk.str1 = "Ani", blk.str2 = "Run", 
-trt.str = "Trt + Tag")                                    
+summaryAovTwoPhase(design2, blk.str1 = "Ani", blk.str2 = "Run", 
+trt.str = "Trt + Tag")        
+
+
+Tag1 = rep(c(1,-1), time = 4, each = 2)
+Tag2 = rep(c(1,-1), time = 8)
+Tag3 = Tag1 * Tag2
+
+summaryAovTwoPhase(design2, blk.str1 = "Ani", blk.str2 = "Run", 
+trt.str = "Trt + Tag", 
+trt.contr = list(Trt = NA, Tag = list(Tag1 = Tag1, Tag2 = Tag2, Tag3 = Tag3)))        
 
 }
-
-\keyword{design}
+\keyword{design }

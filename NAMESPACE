@@ -1,2 +1,1 @@
-export(getVCs.onePhase)
-export(getVCs.twoPhase)
+exportPattern("^[[:alpha:]]+")
