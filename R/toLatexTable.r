@@ -1,12 +1,14 @@
 toLatexTable = function(ANOVA, EF, fixed.names) {
-
+    
     matchRowNames = rownames(ANOVA)
     random.ColNames = colnames(ANOVA)
     fixed.ColNames = colnames(EF)
 
-    if (is.na(fixed.names))
-        fixed.names = c("\\gamma", "\\tau", "\\rho", "\\phi")
-
+    if(length(fixed.names) < 2){
+      if (is.na(fixed.names))
+          fixed.names = c("\\gamma", "\\tau", "\\rho", "\\phi")
+    }
+    
     fixed.names = fixed.names[1:(length(fixed.ColNames)/2)]
 
      #check for interaction effects
@@ -16,14 +18,19 @@ toLatexTable = function(ANOVA, EF, fixed.names) {
         function(x)  paste(fixed.names[match(x,fixed.ColNames)], collapse = ""))
     }
     
-    if(length(grep("MS", random.ColNames)) == 1) 
+    if(length(grep("MS", random.ColNames)) == 1){ 
       ColNamesLen = length(random.ColNames) - 1
-    else 
+    } else {
       ColNamesLen = length(random.ColNames)
-
+    }
+    
+    if(length(ColNamesLen)> 2){
     random.names = c("\\sigma^2", paste("\\sigma_{", 
         substr(sapply(strsplit(random.ColNames[3:ColNamesLen], "\\:"), 
                   function(x) x[length(x)]), 1, 1), "}^2", sep = ""))
+    } else {
+      random.names = c("\\sigma^2")    
+    }
     
     ANOVA = ifelse(ANOVA == "0", "", ANOVA)
     finalTable = cbind(ANOVA, EF[match(matchRowNames, rownames(EF)), ])
@@ -36,12 +43,13 @@ toLatexTable = function(ANOVA, EF, fixed.names) {
     
     finalTable = ifelse(is.na(finalTable), "", finalTable)
 
-    output = " \\begin{table}[ht]\n\\centering\n \\caption{Theoretical ANOVA table}\n"
+    output = "\\begin{table}[ht]\n\\centering\n \\caption{Theoretical ANOVA table}\n"
     
-     if(length(grep("MS", random.ColNames)) == 1) 
+     if(length(grep("MS", random.ColNames)) == 1){ 
       output = c(output, paste("\\begin{tabular}[t]{lrll", paste( rep("l", length(fixed.names)), collapse = ""),"} \n", sep = ""))
-    else 
+    }else{ 
       output = c(output, paste("\\begin{tabular}[t]{lrl", paste( rep("l", length(fixed.names)), collapse = ""),"} \n", sep = ""))
+    }
       
     output = c(output, "\\toprule \n")
 
@@ -56,7 +64,7 @@ toLatexTable = function(ANOVA, EF, fixed.names) {
     output = c(output, firstRow)
     output = c(output, "\\midrule \n")
     for (i in 1:length(matchRowNames)) {
-
+        
         # row names
         SV = matchRowNames[i]
         SV = gsub("   ", "\\\\quad ", SV)
@@ -80,7 +88,12 @@ toLatexTable = function(ANOVA, EF, fixed.names) {
         }
 
         # Fixed VC
+         if(length(grep("MS", random.ColNames)) == 1){ 
         coef.VC = finalTable[i, (3 + length(random.names)):(2 + length(random.names) + length(fixed.names))]
+        } else{
+        coef.VC = finalTable[i, (2 + length(random.names)):(1 + length(random.names) + length(fixed.names))]
+        }
+        
         fixed.VC = ""
         for (j in 1:length(coef.VC)) {
             if (coef.VC[j] == "")
@@ -107,11 +120,12 @@ toLatexTable = function(ANOVA, EF, fixed.names) {
 
          finalTable[i, 2:(1 + length(random.names))]
         
-        if(length(grep("MS", random.ColNames)) == 1) 
+        if(length(grep("MS", random.ColNames)) == 1){ 
           currentRow = paste(SV, " & ", DF, " & ", total.VC," & ", finalTable[i, 2+length(random.names)] , eff, "\\\\ \n", sep = "")
-        else        
+        } else {        
           currentRow = paste(SV, " & ", DF, " & ", total.VC, " &",eff, "\\\\ \n", sep = "")
-
+        }
+        
         output = c(output, currentRow)
     }
 

@@ -7,7 +7,10 @@ Summarize an Theotrical Analysis of Variance Model of Single-Phase Experiments
 Computes the coefficients of the variance components for the expected mean squares for single-phase experiments. The function accepts a data frame of the experimetnal design with the structural formulae of the block and treatment factors. Two tables containing the variance components of the random effects and fixed effects are returned.  
 }
 \usage{
-summaryAovOnePhase(design.df, blk.str, trt.str, var.comp = NA, blk.contr = NA, trt.contr = NA, contr.matrix = all(is.na(trt.contr)), table.legend = FALSE, response = NA, latex = FALSE, fixed.names=NA)
+summaryAovOnePhase(design.df, blk.str, trt.str, var.comp = NA, blk.contr = NA, 
+                   trt.contr = NA, contr.matrix = all(is.na(trt.contr)), 
+                   table.legend = FALSE, response = NA, latex = FALSE, 
+                   fixed.names=NA)
 }
 \arguments{
  \item{design.df}{
@@ -72,6 +75,9 @@ design1 <- local({
 })
 
 summaryAovOnePhase(design1, blk.str = "Ani", trt.str = "Trt") 
+
+summaryAovOnePhase(design1, blk.str = "Ani", trt.str = "Trt", 
+latex = TRUE, fixed.names = c("\\\tau"))
 
 }
 

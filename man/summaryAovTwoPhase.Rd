@@ -8,7 +8,10 @@ Summarize an Theotrical Analysis of Variance Model of Two-Phase Experiments
 Computes the coefficients of the variance components for the expected mean squares for two-phase experiments. The function accepts a data frame of the experimetnal design with the structural formulae of the block and treatment factors. Two tables containing the variance components of the random effects and fixed effects are returned.  
 }
 \usage{
-summaryAovTwoPhase(design.df, blk.str1, blk.str2, trt.str, var.comp = NA, blk.contr = NA, trt.contr = NA, contr.matrix = all(is.na(trt.contr)), table.legend = FALSE, response = NA, latex = FALSE, fixed.names=NA)
+summaryAovTwoPhase(design.df, blk.str1, blk.str2, trt.str, var.comp = NA, 
+                   blk.contr = NA, trt.contr = NA, 
+                   contr.matrix = all(is.na(trt.contr)), table.legend = FALSE, 
+                   response = NA, latex = FALSE, fixed.names=NA)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -95,5 +98,7 @@ summaryAovTwoPhase(design2, blk.str1 = "Ani", blk.str2 = "Run",
 trt.str = "Trt + Tag", 
 trt.contr = list(Trt = NA, Tag = list(Tag1 = Tag1, Tag2 = Tag2, Tag3 = Tag3)))        
 
+summaryAovTwoPhase(design2, blk.str1 = "Ani", blk.str2 = "Run", 
+trt.str = "Trt + Tag", latex = TRUE, fixed.names = c("\\\tau", "\\\gamma"))                                      
 }
 \keyword{design }

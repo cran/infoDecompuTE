@@ -12,8 +12,8 @@ InfoDecompuTE is capable of generating the structure of the analysis of variance
 \tabular{ll}{
 Package: \tab infoDecompuTE\cr
 Type: \tab Package\cr
-Version: \tab 0.4.0\cr
-Date: \tab 2012-05-10\cr
+Version: \tab 0.5.1\cr
+Date: \tab 2013-01-04\cr
 License: \tab GPL (>= 3) \cr
 LazyLoad: \tab yes\cr
 }

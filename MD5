@@ -1,4 +1,4 @@
-ac0baf4c0ba436d0adbf34220b35cd23 *DESCRIPTION
+96285278c572b7bf21c616aa9e2878d4 *DESCRIPTION
 df390c53434517b304ac5db487184641 *NAMESPACE
 d0ac68aace1aa780fa44f631388adf66 *R/blkProkMat.R
 26f582877fde13a4d4b024d99f6b8de3 *R/getFixEF.onePhase.R
@@ -21,7 +21,7 @@ b1b7417b4f8b714c359359e84414ecb6 *R/makeTreatProjectors.R
 89b88520b783fdde7412d45acbe9043a *R/projMat.R
 f921b27239af736aad77655e811f6e05 *R/summaryAovOnePhase.R
 d58bb295d04288052eae2a218cd3eb12 *R/summaryAovTwoPhase.R
-7c14c0c1e1c24115c94f746fbeb05ef2 *R/toLatexTable.r
+21888424109c26f46d369984b2561f2e *R/toLatexTable.r
 f0b20db751fbf678b1daeeae95c64169 *R/tr.R
 26c6142b3f8518b74104e5e506936e76 *R/trtProkMat.R
 b26b105ad88f6f036e6331ffb12e0dc2 *man/blkProkMat.Rd
@@ -34,7 +34,7 @@ fab6875a7bb6de16bf217f21ee36c204 *man/getVMat.onePhase.Rd
 14973124760002af8083bfe088cd64d1 *man/getVMat.twoPhase.Rd
 db6d6fc803253dbc5f62d233e0bb7bd3 *man/getVcCoefMS.onePhase.Rd
 cb81116af7b47710b4124fc06dacc6e3 *man/getVcCoefMS.twoPhase.Rd
-468dd4117b511c06f721218b4255c677 *man/infoDecompuTE-package.Rd
+f9f034d69d8631dfec3daaebd61074ee *man/infoDecompuTE-package.Rd
 86ef1de0f6a1a463486083b25813e189 *man/invInfMat.Rd
 61927d9191fff5f849b2dea29e0975c1 *man/m1.Rd
 c1273a0dd6aa4f5fa48735e52e66c4ba *man/mI.Rd
@@ -44,8 +44,8 @@ e6f264c470edfbe9100c851722296609 *man/makeBlkDesMatrix.Rd
 b0899d2ba1b138b719b11351bc6c79ee *man/makeBlockProjectors.Rd
 1e572b5264d0f332a92232e49e8b04b7 *man/makeTreatProjectors.Rd
 163ca226d3b41e746ad13d76ed87e431 *man/projMat.Rd
-182bdcb3dc3c99846aabb8a0e1fcabc7 *man/summaryAovOnePhase.Rd
-fed5b64b8631ef91e78b17e2a81b48fb *man/summaryAovTwoPhase.Rd
+9ab68daada74932b75ee98146f56e358 *man/summaryAovOnePhase.Rd
+f13d377b92b58d676393b406002c80b7 *man/summaryAovTwoPhase.Rd
 8a72039cdb3a5dc40e62f38a9d34e290 *man/toLatexTable.rd
 e71ffa7fb84e93b9dbe9c77b8611e1d1 *man/tr.Rd
 b741fc5d2679399afab30cce97d14f40 *man/trtProkMat.Rd
