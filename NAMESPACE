@@ -1,1 +1,29 @@
-exportPattern("^[[:alpha:]]+")
+import(MASS)
+importFrom(stats,terms)
+importFrom(stats,as.formula)
+export(  getCoefVC.onePhase,
+		getCoefVC.twoPhase,	
+		getEffFactor,	
+		getFixedEF.onePhase,	
+		getFixedEF.twoPhase,	
+		getTrtCoef,	
+		getTrtRep,	
+		getVMat.onePhase,	
+		getVMat.twoPhase,	
+		identityMat,
+		infoDecompMat,	
+		invInfMat,	
+		J,	
+		K,	
+		makeBlkDesMat,
+		makeContrMat,	
+		makeOrthProjectors,	
+		makeOverDesMat,
+		projMat,	
+		summaryAovOnePhase,	
+		summaryAovTwoPhase,
+		toLatexTable,	
+		tr,
+		unity,
+    adjustEffectNames,
+	adjustMissingLevels)

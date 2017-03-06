@@ -1,20 +1,20 @@
 \name{summaryAovOnePhase}
 \alias{summaryAovOnePhase}
 \title{
-Summarize an Theotrical Analysis of Variance Model of Single-Phase Experiments
+Summarize an Theoretical Analysis of Variance Model of Single-Phase Experiments
 }
 \description{
-Computes the coefficients of the variance components for the expected mean squares for single-phase experiments. The function accepts a data frame of the experimetnal design with the structural formulae of the block and treatment factors. Two tables containing the variance components of the random effects and fixed effects are returned.  
+Computes the coefficients of the variance components for the expected mean squares for single-phase experiments. The function accepts a data frame of the experimental design with the structural formulae of the block and treatment factors. Two tables containing the variance components of the random effects and fixed effects are returned.  
 }
 \usage{
-summaryAovOnePhase(design.df, blk.str, trt.str, var.comp = NA, blk.contr = NA, 
-                   trt.contr = NA, contr.matrix = all(is.na(trt.contr)), 
-                   table.legend = FALSE, response = NA, latex = FALSE, 
-                   fixed.names=NA)
+summaryAovOnePhase(design.df, blk.str, trt.str, var.comp = NA,  
+                   trt.contr = NA, table.legend = FALSE, 
+                   response = NA, latex = FALSE, fixed.names = NA,
+                   decimal = FALSE, digits = 2, list.sep = TRUE)
 }
 \arguments{
- \item{design.df}{
-a data frame containing the design of the experiment. Every column must be factors. 
+  \item{design.df}{
+a data frame containing the experimental design. Requires every column be a \code{\link{factor}. Any punctuation or symbol such as dots or parentheses should be avoid for the column names.}.
 }
   \item{blk.str}{
 a single string of characters containing the structural formula for the block factors using the Wilkinson-Rogers' syntax. 
@@ -25,31 +25,35 @@ a single string of characters containing the structural formula for the treatmen
   \item{var.comp}{
 a vector of characters containing the variance components of interest this allows the user to specify the variance components to be shown on the ANOVA table. This also allows the user to specify artificial stratum to facilitate decomposition. Default is \code{NA}, which uses every random factor as the variance components from \code{random.terms}.
 }
- \item{blk.contr}{
-a list of first-phase block contrast vectors, this allows the user to specify the contrasts for each block factor in the first phase experiment. Note that if this arguement is used, it is necessary to specify the contrasts for every treatment factor with the same order as \code{fixed.terms}. Default is \code{NA}, which uses the C matrix described by John and Williams (1987).
+
+\item{trt.contr}{
+a list of treatment contrast vectors, this allows the user to specify the contrasts for each treatment factor. Note that if this argument is used, it is necessary to specify the contrasts for every treatment factor with the same order as \code{fixed.terms}. Default is \code{NA}, which uses the C matrix described by John and Williams (1987).
 }
-  \item{trt.contr}{
-a list of treatment contrast vectors, this allows the user to specify the contrasts for each treatment factor. Note that if this arguement is used, it is necessary to specify the contrasts for every treatment factor with the same order as \code{fixed.terms}. Default is \code{NA}, which uses the C matrix described by John and Williams (1987).
-}
-\item{contr.matrix}{
-a logical allows the users to use the contrast matrices or contrast vectors. If \code{contr.matrix = FALSE}, the outputs will use the contrast vectors each contributes one DF.  If the \code{contr.matrix} arguement is \code{TRUE} the output will conbine the contrast vector for each treatment factors. The default depends on whether \code{trt.contr} has defined, if \code{trt.contr} has defined, then \code{contr.matrix} becomes \code{FALSE}.  
-}
-  \item{table.legend}{
+\item{table.legend}{
 a logical allows the users to use the legend for the variance components of the ANOVA table for a large design. Default is \code{FALSE}, which uses the original names.  
 }
-  \item{response}{
+\item{response}{
 a numeric vector contains the responses from the experiment. 
 }
 \item{latex}{
-a logical allows the users to output the Latex script to Latex table. 
+a logical allows the users to output the Latex script to Latex table. Once the Latex script is generated, it requires the user to install and load two Latex packages: \code{booktabs} and \code{bm} to compile the Latex script.
 }
-  \item{fixed.names}{
-a vector of character allows the users to modify symbols for the fixed effects.
+\item{fixed.names}{
+a vector of character allows the users to modify symbols for the fixed effects for the Latex outputs.
+}
+\item{decimal}{
+a logical allows users to display the coefficients as the decimals. Default is \code{FALSE}, resulting in the use of function \code{fractions}.    
+}
+ \item{digits}{
+a integer indicating the number of decimal places. Default is 2, resulting in 2 decimal places.  
+}
+ \item{list.sep}{
+a logical allows users to present the efficiency factors and coefficients of the fixed effects a list of seperate matrices. Default is \code{TRUE}.  
 }
 }
 \value{
- The values returned depends on the value of the \code{table.legend} arguement. If \code{table.legend = FALSE}, this function will return a list of two data frames. The first data frame contains the random effects and the second data frame contains the fixed effects. If the \code{table.legend} arguement is \code{TRUE}, then it will return a list containing two lists. The first list consists of a data frame of random effects and a character string for the legend. The second list consists of a data frame of fixed effects and a character string for the legend.
- If \code{response} arguement is used, the random effect table will have one extra column with of mean squares computed from the responses from the experiment.
+ The values returned depends on the value of the \code{table.legend} argument. If \code{table.legend = FALSE}, this function will return a list of two data frames. The first data frame contains the random effects and the second data frame contains the fixed effects. If the \code{table.legend} argument is \code{TRUE}, then it will return a list containing two lists. The first list consists of a data frame of random effects and a character string for the legend. The second list consists of a data frame of fixed effects and a character string for the legend.
+ If \code{response} argument is used, the random effect table will have one extra column with of mean squares computed from the responses from the experiment.
 }
 \references{
 John J, Williams E (1987). \emph{Cyclic and computer generated Designs}. Second edition. Chapman

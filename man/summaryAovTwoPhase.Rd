@@ -2,21 +2,21 @@
 \alias{summaryAovTwoPhase}
 
 \title{
-Summarize an Theotrical Analysis of Variance Model of Two-Phase Experiments
+Summarize an Theoretical Analysis of Variance Model of Two-Phase Experiments
 }
 \description{
-Computes the coefficients of the variance components for the expected mean squares for two-phase experiments. The function accepts a data frame of the experimetnal design with the structural formulae of the block and treatment factors. Two tables containing the variance components of the random effects and fixed effects are returned.  
+Computes the coefficients of the variance components for the expected mean squares for two-phase experiments. The function accepts a data frame of the experimental design with the structural formulae of the block and treatment factors. Two tables containing the variance components of the random effects and fixed effects are returned.  
 }
 \usage{
 summaryAovTwoPhase(design.df, blk.str1, blk.str2, trt.str, var.comp = NA, 
-                   blk.contr = NA, trt.contr = NA, 
-                   contr.matrix = all(is.na(trt.contr)), table.legend = FALSE, 
-                   response = NA, latex = FALSE, fixed.names=NA)
+                   blk.contr = NA, trt.contr = NA, table.legend = FALSE, 
+                   response = NA, latex = FALSE, fixed.names = NA, 
+                   decimal = FALSE, digits = 2, list.sep = TRUE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
- \item{design.df}{
-a data frame containing the design of the experiment. Every column must be factors. 
+  \item{design.df}{
+a data frame containing the experimental design. Requires every column be a \code{\link{factor}. Any punctuation or symbol such as dots or parentheses should be avoid for the column names.}.
 }
  \item{blk.str1}{
 a single string of characters containing the structural formula for the block factors of the first-phase experiment using the Wilkinson-Rogers' syntax. 
@@ -31,14 +31,11 @@ a single string of characters containing the structural formula for the treatmen
 a vector of characters containing the variance components of interest this allows the user to specify the variance components to be shown on the ANOVA table. This also allows the user to specify artificial stratum to facilitate decomposition. Default is \code{NA}, which uses every random factor as the variance components with the first phase's variance components in \code{random.terms1} appear before the second phase's variance components in \code{random.terms2}.
 }
  \item{blk.contr}{
-a list of first-phase block contrast vectors, this allows the user to specify the contrasts for each block factor in the first phase experiment. Note that if this arguement is used, it is necessary to specify the contrasts for every treatment factor with the same order as \code{fixed.terms}. Default is \code{NA}, which uses the C matrix described by John and Williams (1987).
+a list of first-phase block contrast vectors, this allows the user to specify the contrasts for each block factor in the first phase experiment. Note that if this argument is used, it is necessary to specify the contrasts for every treatment factor with the same order as \code{fixed.terms}. Default is \code{NA}, which uses the C matrix described by John and Williams (1987).
 }
   \item{trt.contr}{
-a list of treatment contrast vectors, this allows the user to specify the contrasts for each treatment factor. Note that if this arguement is used, it is necessary to specify the contrasts for every treatment factor with the same order as \code{fixed.terms}. Default is \code{NA}, which uses the C matrix described by John and Williams (1987).
+a list of treatment contrast vectors, this allows the user to specify the contrasts for each treatment factor. Note that if this argument is used, it is necessary to specify the contrasts for every treatment factor with the same order as \code{fixed.terms}. Default is \code{NA}, which uses the C matrix described by John and Williams (1987).
 }
- \item{contr.matrix}{
-a logical allows the users to use the contrast matrices or contrast vectors. If \code{contr.matrix = FALSE}, the outputs will use the contrast vectors each contributes one DF.  If the \code{contr.matrix} arguement is \code{TRUE} the output will conbine the contrast vector for each treatment factors. The default depends on whether \code{trt.contr} has defined, if \code{trt.contr} has defined, then \code{contr.matrix} becomes \code{FALSE}.  
-}    
   \item{table.legend}{
 a logical allows the users to use the legend for the variance components of the ANOVA table for a large design. Default is \code{FALSE}, which uses the original names.  
 }   
@@ -46,15 +43,24 @@ a logical allows the users to use the legend for the variance components of the 
 a numeric vector contains the responses from the experiment. 
 }
  \item{latex}{
-a logical allows the users to output the Latex script to Latex table. 
+a logical allows the users to output the Latex script to Latex table. Once the Latex script is generated, it requires the user to install and load two Latex packages: \code{booktabs} and \code{bm} to compile the Latex script.
 }
   \item{fixed.names}{
-a vector of character allows the users to modify symbols for the fixed effects.
+a vector of character allows the users to modify symbols for the fixed effects for the Latex outputs.
+}
+\item{decimal}{
+a logical allows users to display the coefficients as the decimals. Default is \code{FALSE}, resulting in the use of function \code{fractions}.    
+}
+ \item{digits}{
+a integer indicating the number of decimal places. Default is 2, resulting in 2 decimal places.  
+}
+ \item{list.sep}{
+a logical allows users to present the efficiency factors and coefficients of the fixed effects a list of seperate matrices. Default is \code{TRUE}.   
 }
 }
 \value{
-The values returned depends on the value of the \code{table.legend} arguement. If \code{table.legend = FALSE}, this function will return a list of two data frames. The first data frame contains the random effects and the second data frame contains the fixed effects. If the \code{table.legend} arguement is \code{TRUE}, then it will return a list containing two lists. The first list consists of a data frame of random effects and a character string for the legend. The second list consists of a data frame of fixed effects and a character string for the legend.
- If \code{response} arguement is used, the random effect table will have one extra column with of mean squares computed from the responses from the experiment.
+The values returned depends on the value of the \code{table.legend} argument. If \code{table.legend = FALSE}, this function will return a list of two data frames. The first data frame contains the random effects and the second data frame contains the fixed effects. If the \code{table.legend} argument is \code{TRUE}, then it will return a list containing two lists. The first list consists of a data frame of random effects and a character string for the legend. The second list consists of a data frame of fixed effects and a character string for the legend.
+ If \code{response} argument is used, the random effect table will have one extra column with of mean squares computed from the responses from the experiment.
 }
 \references{
 John J, Williams E (1987). \emph{Cyclic and computer generated Designs}. Second edition. Chapman
@@ -72,33 +78,74 @@ Kevin Chang
 \code{\link{terms}} for more information on the structural formula.
 }
 \examples{
+
+#Phase 2 experiment  
 design2 <- local({ 
   Run = as.factor(rep(1:4, each = 4))
   Ani = as.factor(LETTERS[c(1,2,3,4,
                             5,6,7,8,
                             3,4,1,2,
                             7,8,5,6)])
+  Sam = as.factor(as.numeric(duplicated(Ani)) + 1)
   Tag = as.factor(c(114,115,116,117)[rep(1:4, 4)])
-  Trt = as.factor(letters[c(1,2,1,2,
+  Trt = as.factor(c("healthy", "diseased")[c(1,2,1,2,
                             2,1,2,1,
                             1,2,1,2,
                             2,1,2,1)])
-  data.frame(Run, Ani, Tag, Trt)
+  data.frame(Run, Ani, Sam, Tag, Trt)
 })
-
+design2
+                                  
 summaryAovTwoPhase(design2, blk.str1 = "Ani", blk.str2 = "Run", 
-trt.str = "Trt + Tag")        
+trt.str = "Tag + Trt")                                            
+   
+#Add the sample into the Phase 1 block structure                                           
+summaryAovTwoPhase(design2, blk.str1 = "Ani/Sam", blk.str2 = "Run", 
+trt.str = "Tag + Trt")                                            
 
 
-Tag1 = rep(c(1,-1), time = 4, each = 2)
-Tag2 = rep(c(1,-1), time = 8)
-Tag3 = Tag1 * Tag2
+#Assuming there is crossing between the animals and samples 
+summaryAovTwoPhase(design2, blk.str1 = "Ani*Sam", blk.str2 = "Run", 
+trt.str = "Tag + Trt")                                            
 
-summaryAovTwoPhase(design2, blk.str1 = "Ani", blk.str2 = "Run", 
-trt.str = "Trt + Tag", 
-trt.contr = list(Trt = NA, Tag = list(Tag1 = Tag1, Tag2 = Tag2, Tag3 = Tag3)))        
+ 
+#Set Artificial stratum 
+design2$AniSet = as.factor(c(2, 2, 2, 2, 1, 1, 1, 1, 2, 2, 2, 2, 1, 1, 1, 1))
+design2
 
-summaryAovTwoPhase(design2, blk.str1 = "Ani", blk.str2 = "Run", 
-trt.str = "Trt + Tag", latex = TRUE, fixed.names = c("\\\tau", "\\\gamma"))                                      
+summaryAovTwoPhase(design2, blk.str1 =  "Ani/Sam", blk.str2 = "AniSet/Run", 
+trt.str = "Tag + Trt", var.comp = c("Ani:Sam", "Ani", "Run"))                                    
+
+#Define traetment contrasts                                   
+TagA = rep(c(1,1,-1,-1),time = 4)                
+TagB = rep(c(1,-1,1,-1),time = 4)                
+TagC = TagA * TagB
+Tag = list(TagA = TagA, TagB = TagB, TagC = TagC)
+Tag
+
+
+Trt = as.numeric(design2$Trt)-1.5
+Trt
+
+
+summaryAovTwoPhase(design2, blk.str1 =  "Ani/Sam", blk.str2 = "Run", 
+trt.str = "Tag + Trt", 
+trt.contr = list(Tag = list(TagA = TagA, TagB = TagB, TagC = TagC), Trt = Trt),
+table.legend = TRUE)                                
+
+#Compute MS 
+set.seed(527)
+summaryAovTwoPhase(design2, blk.str1 = "Ani/Sam", blk.str2 = "Run", 
+trt.str = "Tag + Trt", response = rnorm(16))$ANOVA                                            
+
+#Generate Latex scripts
+summaryAovTwoPhase(design2, blk.str1 = "Ani/Sam", blk.str2 = "Run", 
+trt.str = "Tag + Trt", latex = TRUE, fixed.names = c("\\\\gamma", "\\\\tau"))  
+
+#Generate Latex scripts with MS
+set.seed(527)
+summaryAovTwoPhase(design2, blk.str1 = "Ani/Sam", blk.str2 = "Run", 
+trt.str = "Tag + Trt", response = rnorm(16), latex = TRUE, 
+fixed.names = c("\\\\gamma", "\\\\tau") )                               
 }
 \keyword{design }
