@@ -17,8 +17,10 @@ Compute the projection matrix from a square matrix.
 }
 \examples{
 
+
 m = matrix(1, nrow = 10, ncol = 3)
 projMat(m) 
+
 
 }
 \author{

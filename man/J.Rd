@@ -2,7 +2,7 @@
 % Please edit documentation in R/J.R
 \name{J}
 \alias{J}
-\title{Identity Matrix Minus Averging Matrix}
+\title{Identity Matrix Minus Averaging Matrix}
 \usage{
 J(n)
 }
@@ -10,8 +10,8 @@ J(n)
 \item{n}{a numeric describes the dimension of the square matrix.}
 }
 \value{
-This function return a square matrix which the identity matrix minus
-the averging matrix.
+This function return a square matrix which the identity matrix
+minus the averaging matrix.
 }
 \description{
 Construct a square matrix which the identity matrix minus the averging
@@ -19,7 +19,9 @@ matrix.
 }
 \examples{
 
+
 J(10)
+
 
 }
 \author{

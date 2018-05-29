@@ -18,7 +18,9 @@ Construct a n-by-n averaging matrix.
 }
 \examples{
 
+
 K(10)
+
 
 }
 \references{

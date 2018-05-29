@@ -1,8 +1,9 @@
 Package: infoDecompuTE
 Title: Information Decomposition of Two-Phase Experiments
-Version: 0.6.0
-Date: 2017-03-05
-Authors@R: c(person("Kevin", "Chang", email = "k.chang@auckland.ac.nz", role = c("aut", "cre")))
+Version: 0.6.1
+Date: 2018-05-28
+Authors@R: c(person("Kevin", "Chang", email = "k.chang@auckland.ac.nz", role = c("aut", "cre")), 
+            person("Katya", "Ruggiero", email = "k.ruggiero@auckland.ac.nz", role = c("aut")))
 Description: The main purpose of this package is to generate the structure of the analysis of variance 
             (ANOVA) table of the two-phase experiments. The user only need to input the design and the 
               relationships of the random and fixed factors using the Wilkinson-Rogers' syntax, 
@@ -19,8 +20,9 @@ URL: https://github.com/kcha193/infoDecompuTE
 BugReports: https://github.com/kcha193/infoDecompuTE/issues
 RoxygenNote: 6.0.1
 NeedsCompilation: no
-Packaged: 2017-03-06 08:56:33 UTC; kcha193
-Author: Kevin Chang [aut, cre]
+Packaged: 2018-05-28 03:57:32 UTC; kcha193
+Author: Kevin Chang [aut, cre],
+  Katya Ruggiero [aut]
 Maintainer: Kevin Chang <k.chang@auckland.ac.nz>
 Repository: CRAN
-Date/Publication: 2017-03-06 15:54:30
+Date/Publication: 2018-05-29 08:30:52 UTC

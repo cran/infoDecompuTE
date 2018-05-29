@@ -18,7 +18,9 @@ Construct a vector with all elements unity.
 }
 \examples{
 
+
 unity(10)
+
 
 }
 \references{

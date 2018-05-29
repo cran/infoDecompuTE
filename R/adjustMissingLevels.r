@@ -1,21 +1,49 @@
-
+##' Adjust the Missing Levels
+##' 
+##' Adjust for appropriate syntax describing the effects matching the
+##' structural formula.
+##' 
+##' 
+##' @param design.df a data frame containing the experimental design. Requires
+##' every column be a \code{\link{factor}}.
+##' @param str.for a single string of characters containing the structural
+##' formula using the Wilkinson-Rogers' syntax.
+##' @return A list containing a data frame with the experimental design and a
+##' single string of characters containing the structural formula.
+##' @author Kevin Chang
+##' @examples
+##' 
+##' design.df = data.frame( Blk = factor(1:16),
+##'                       	Ani = factor(c(	1,1,2,2,
+##'                                       	1,1,2,2,
+##'                                       	1,1,2,2,
+##'                                       	1,1,2,2)),
+##'                       	Trt = factor(c(	1,2,3,4,
+##'                                       	1,2,3,4,
+##'                                       	1,2,3,4,
+##'                                      		1,2,3,4)))
+##'  
+##' adjustMissingLevels(design.df, str.for = "Ani/Trt") 
+##' 
+##' @export adjustMissingLevels
 adjustMissingLevels = function(design.df, str.for){
 	
-	if(!grepl("(:)", str.for) && !grepl("(/)", str.for)) 
-		return(list(design.df = design.df, str.for = str.for))
-	#browser()
-	fT = stats::terms(stats::as.formula(paste("~", str.for, sep = "")), keep.order = TRUE)
-
-	trtTerm <- attr(fT, "term.labels")
-    effectsMatrix <- attr(fT, "factor")
-    
-    trtTerm = adjustEffectNames(effectsMatrix, trtTerm)
-		
-	oldTerm = unlist(strsplit(trtTerm, "\\*"))
-	oldTerm = unlist(strsplit(oldTerm, "\\)"))
-	
-	oldTerm = unique(oldTerm[grep("\\(", oldTerm)])
-	
+  if(!grepl("(:)", str.for) &&
+     !grepl("(/)", str.for))
+    return(list(design.df = design.df, str.for = str.for))
+  #browser()
+  fT = stats::terms(stats::as.formula(paste("~", str.for, sep = "")), keep.order = TRUE)
+  
+  trtTerm <- attr(fT, "term.labels")
+  effectsMatrix <- attr(fT, "factor")
+  
+  trtTerm = adjustEffectNames(effectsMatrix, trtTerm)
+  
+  oldTerm = unlist(strsplit(trtTerm, "\\*"))
+  oldTerm = unlist(strsplit(oldTerm, "\\)"))
+  
+  oldTerm = unique(oldTerm[grep("\\(", oldTerm)])
+  
 	for(i in oldTerm){
 	
 		oldTermNames = unique(unlist(strsplit(i, "\\(")))

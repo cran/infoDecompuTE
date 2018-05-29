@@ -17,8 +17,10 @@ Compute the trace of the square matrix.
 }
 \examples{
 
+
 m = matrix(1, nrow = 10, ncol = 10)
 tr(m)   
+
 
 }
 \references{

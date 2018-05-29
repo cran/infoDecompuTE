@@ -18,7 +18,9 @@ Construct an identity matrix.
 }
 \examples{
 
+
 identityMat(10)
+
 
 }
 \references{
