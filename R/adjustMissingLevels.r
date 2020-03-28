@@ -21,7 +21,7 @@
 ##'                       	Trt = factor(c(	1,2,3,4,
 ##'                                       	1,2,3,4,
 ##'                                       	1,2,3,4,
-##'                                      		1,2,3,4)))
+##'                                      		1,2,3,4)), stringsAsFactors = TRUE )
 ##'  
 ##' adjustMissingLevels(design.df, str.for = "Ani/Trt") 
 ##' 
@@ -40,23 +40,25 @@ adjustMissingLevels = function(design.df, str.for){
   trtTerm = adjustEffectNames(effectsMatrix, trtTerm)
   
   oldTerm = unlist(strsplit(trtTerm, "\\*"))
-  oldTerm = unlist(strsplit(oldTerm, "\\)"))
+  oldTerm = unlist(strsplit(oldTerm, "\\]"))
   
-  oldTerm = unique(oldTerm[grep("\\(", oldTerm)])
+  oldTerm = unique(oldTerm[grep("\\[", oldTerm)])
   
 	for(i in oldTerm){
 	
-		oldTermNames = unique(unlist(strsplit(i, "\\(")))
+		oldTermNames = unique(unlist(strsplit(i, "\\[")))
 		
 		oldTermNames = oldTermNames[oldTermNames!=""]
 		
-		bwTermName = suppressWarnings(interaction(design.df[,unlist(strsplit(oldTermNames[1], "\\."))])[, drop = TRUE])
+		bwTermName = 
+		  suppressWarnings(interaction(design.df[,unlist(strsplit(oldTermNames[1], "\\."))])[, drop = TRUE])
 		
 		oldTermNames = oldTermNames[2]
 		
 		newDes = design.df[,oldTermNames]
 
-		newDes = data.frame(bwTermName = as.factor(as.character(bwTermName)), newDes)
+		newDes = data.frame(bwTermName = as.factor(as.character(bwTermName)), newDes,
+		                    stringsAsFactors = TRUE )
 		
 		if(any(is.na(newDes[,1]))){		
 			temp = as.character(newDes[,1])
@@ -113,11 +115,12 @@ adjustMissingLevels = function(design.df, str.for){
 		
 			levelBased = which(table(newDes[,shortTerm]) == max(table(newDes[,shortTerm])))[1]
 
-			repeatedLevels = suppressWarnings(newDes[,names(termListLength)[2]][inter == levels(inter)[levelBased]][,drop=TRUE])
+			repeatedLevels = 
+			  suppressWarnings(newDes[,names(termListLength)[2]][inter == levels(inter)[levelBased]][,drop=TRUE])
 			
 			for(k in  levels(inter)[-levelBased]){
 				temp = suppressWarnings(newDes[,names(termListLength)[2]][inter == k][,drop=TRUE])
-				levels(temp) = levels(repeatedLevels)
+				#levels(temp) = levels(repeatedLevels)
 				newDes[,names(termListLength)[2]][inter == k] = temp
 			}
 			

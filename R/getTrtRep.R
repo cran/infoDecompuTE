@@ -25,7 +25,7 @@
 ##'                             5,6,7,8)])
 ##'   Trt = as.factor(letters[c(1,1,1,1,
 ##'                             2,2,2,2)])
-##'   data.frame(Ani, Trt)
+##'   data.frame(Ani, Trt, stringsAsFactors = TRUE )
 ##' })
 ##' 
 ##' trt.str = "Trt"

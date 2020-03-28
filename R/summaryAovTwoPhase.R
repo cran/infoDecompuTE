@@ -83,7 +83,6 @@
 ##' @keywords design
 ##' @examples
 ##' 
-##' 
 ##' #Phase 2 experiment  
 ##' design2 <- local({ 
 ##'   Run = as.factor(rep(1:4, each = 4))
@@ -97,7 +96,7 @@
 ##'                             2,1,2,1,
 ##'                             1,2,1,2,
 ##'                             2,1,2,1)])
-##'   data.frame(Run, Ani, Sam, Tag, Trt)
+##'   data.frame(Run, Ani, Sam, Tag, Trt, stringsAsFactors = TRUE)
 ##' })
 ##' design2
 ##'                                   
@@ -153,12 +152,15 @@
 ##' trt.str = "Tag + Trt", response = rnorm(16), latex = TRUE, 
 ##' fixed.names = c("\\gamma", "\\tau") )                               
 ##' 
+##' 
 ##' @export summaryAovTwoPhase
 summaryAovTwoPhase <- function(design.df, blk.str1, blk.str2, trt.str, var.comp = NA, 
     blk.contr = NA, trt.contr = NA, table.legend = FALSE, response = NA, latex = FALSE, 
     fixed.names = NA, decimal = FALSE, digits = 2, list.sep = TRUE) {
     
-  design.df <- data.frame(sapply(design.df, function(x) gsub("[[:punct:]]", "", as.character(x))))
+  design.df <- data.frame(sapply(design.df,
+                                 function(x) gsub("[[:punct:]]", "", as.character(x))), 
+                          stringsAsFactors = TRUE )
     
 	#browser()
 	newTerms = adjustMissingLevels(design.df, trt.str)
@@ -240,7 +242,8 @@ summaryAovTwoPhase <- function(design.df, blk.str1, blk.str2, trt.str, var.comp 
         }
     }
     
-	rT1 <- stats::terms(stats::as.formula(paste("~", blk.str1, sep = "")), keep.order = TRUE)  #random terms phase 1
+	rT1 <- stats::terms(stats::as.formula(paste("~", blk.str1, sep = "")), keep.order = TRUE)  
+	#random terms phase 1
 	blkTerm1 <- attr(rT1, "term.labels")
      
 	

@@ -49,7 +49,7 @@ getCoefVC.twoPhase <- function(Pb, design.df, v.mat, response, table.legend, dec
     V <- v.mat
     VC <- rep("1", length(V) + 2)
     names(VC) <- c("DF", c(names(V), "MS"))
-    VC <- t(data.frame(VC))
+    VC <- t(data.frame(VC, stringsAsFactors = TRUE ))
     noindent <- FALSE
     # browser()
     for (i in 1:length(Pb)) {

@@ -5,9 +5,20 @@
 \title{Summarize an Theoretical Analysis of Variance Model of Single-Phase
 Experiments}
 \usage{
-summaryAovOnePhase(design.df, blk.str, trt.str, var.comp = NA,
-  trt.contr = NA, table.legend = FALSE, response = NA, latex = FALSE,
-  fixed.names = NA, decimal = FALSE, digits = 2, list.sep = TRUE)
+summaryAovOnePhase(
+  design.df,
+  blk.str,
+  trt.str,
+  var.comp = NA,
+  trt.contr = NA,
+  table.legend = FALSE,
+  response = NA,
+  latex = FALSE,
+  fixed.names = NA,
+  decimal = FALSE,
+  digits = 2,
+  list.sep = TRUE
+)
 }
 \arguments{
 \item{design.df}{a data frame containing the experimental design. Requires
@@ -85,7 +96,7 @@ design1 <- local({
                             5,6,7,8)])
   Trt = as.factor(letters[c(1,1,1,1,
                             2,2,2,2)])
-  data.frame(Ani, Trt)
+  data.frame(Ani, Trt, stringsAsFactors = TRUE)
 })
 
 summaryAovOnePhase(design1, blk.str = "Ani", trt.str = "Trt") 

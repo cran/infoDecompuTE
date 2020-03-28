@@ -34,7 +34,7 @@
 ##'                             5,6,7,8)])
 ##'   Trt = as.factor(letters[c(1,1,1,1,
 ##'                             2,2,2,2)])
-##'   data.frame(Ani, Trt)
+##'   data.frame(Ani, Trt, stringsAsFactors = TRUE )
 ##' })
 ##' 
 ##' blk.str = "Ani"
@@ -86,7 +86,7 @@ getEffFactor <-
     names(effFactors[[1]]) <- names(T)
     for (i in 1:nEffect) {
       
-      r.adjust <- solve(sqrt(diag(Rep[, i])))
+      r.adjust <- MASS::ginv(sqrt(diag(Rep[, i])))
       #browser()
       
       # eigenvalues of the information matrix
@@ -130,7 +130,7 @@ getEffFactor <-
       
       for (j in 1:nEffect) {
         
-        r.adjust <- ginv(sqrt(diag(Rep[, j])))
+        r.adjust <- MASS::ginv(sqrt(diag(Rep[, j])))
         
         va <- Re(eigen(r.adjust %*% T[[j]] %*% t(N) %*% 
                          PNTginvATNP[[i]] %*% N %*% r.adjust)$va)

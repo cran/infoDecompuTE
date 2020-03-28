@@ -76,7 +76,7 @@
 ##'                             5,6,7,8)])
 ##'   Trt = as.factor(letters[c(1,1,1,1,
 ##'                             2,2,2,2)])
-##'   data.frame(Ani, Trt)
+##'   data.frame(Ani, Trt, stringsAsFactors = TRUE)
 ##' })
 ##' 
 ##' summaryAovOnePhase(design1, blk.str = "Ani", trt.str = "Trt") 
@@ -90,10 +90,12 @@ summaryAovOnePhase <- function(design.df, blk.str, trt.str, var.comp = NA, trt.c
                                response = NA, latex = FALSE, fixed.names = NA, decimal = FALSE, digits = 2, 
                                list.sep = TRUE) {
   
-  design.df <- data.frame(sapply(design.df, function(x) gsub("[[:punct:]]", "", as.character(x))))
+  design.df <- data.frame(sapply(design.df,
+                                 function(x) gsub("[[:punct:]]", "", as.character(x))),
+                          stringsAsFactors = TRUE )
   
   newTerms = adjustMissingLevels(design.df, trt.str)
-  # browser()
+  #browser()
   design.df = newTerms$design.df
   trt.str = newTerms$str.for
   ######################################################################################### Main methods starts here-> Extract the fixed and random terms

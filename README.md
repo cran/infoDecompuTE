@@ -1,8 +1,9 @@
 infoDecompuTE
 =============
-[![Build Status](https://travis-ci.org/kcha193/infoDecompuTE.png?branch=master)](https://travis-ci.org/kcha193/infoDecompuTE) [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/infoDecompuTE)](https://cran.r-project.org/package=infoDecompuTE)
-[![Coverage Status](https://img.shields.io/codecov/c/github/kcha193/infoDecompuTE/master.svg)](https://codecov.io/github/kcha193/infoDecompuTE?branch=master)
-[![Rdoc](http://www.rdocumentation.org/badges/version/infoDecompuTE)](http://www.rdocumentation.org/packages/infoDecompuTE)
+[![Build Status](https://travis-ci.org/kcha193/infoDecompuTE.png?branch=master)](https://travis-ci.org/kcha193/infoDecompuTE)
+[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/infoDecompuTE)](https://cran.r-project.org/package=infoDecompuTE)
+
+
 
 InfoDecompuTE is capable of generating the structure of the analysis of variance (ANOVA) table of the two-phase experiments. By inputting the design and the relationships of the random and fixed factors using the Wilkinson-Rogers' syntax, infoDecompuTE can generate the structure of the ANOVA table with the coefficients of the variance components for the expected mean squares. This package can also study the balanced incomplete block design and provides the efficiency factors of the fixed effects.
 
@@ -30,7 +31,7 @@ design1 <- local({
                             5,6,7,8)])
   Trt = as.factor(letters[c(1,1,1,1,
                             2,2,2,2)])
-  data.frame(Ani, Trt)
+  data.frame(Ani, Trt, stringsAsFactors = TRUE)
 })
 
 summaryAovOnePhase(design1, blk.str = "Ani", trt.str = "Trt") 
@@ -47,7 +48,7 @@ design2 <- local({
                             2,1,2,1,
                             1,2,1,2,
                             2,1,2,1)])
-  data.frame(Run, Ani, Sam, Tag, Trt)
+  data.frame(Run, Ani, Sam, Tag, Trt, stringsAsFactors = TRUE)
 })
 design2
                                   
@@ -55,6 +56,3 @@ summaryAovTwoPhase(design2, blk.str1 = "Ani", blk.str2 = "Run",
 trt.str = "Tag + Trt")  
 ```
 
-## Shiny apps
-
-The shiny app is also available from [shinyapps.io](https://kcha193.shinyapps.io/infoDecompuTE_Shiny/).

@@ -42,7 +42,7 @@
 ##'                             5,6,7,8)])
 ##'   Trt <- as.factor(letters[c(1,1,1,1,
 ##'                             2,2,2,2)])
-##'   data.frame(Ani, Trt)
+##'   data.frame(Ani, Trt, stringsAsFactors = TRUE )
 ##' })
 ##' 
 ##' blk.str <- "Ani"
@@ -92,7 +92,7 @@ getCoefVC.onePhase <- function(Pb, design.df, v.mat, response, table.legend, dec
     
     VC <- rep("1", length(V) + 2)
     names(VC) <- c("DF", names(V), "MS")
-    VC <- t(data.frame(VC))
+    VC <- t(data.frame(VC, stringsAsFactors = TRUE ))
     ############################################################################################################## 
     
     for (i in 1:length(Pb)) {

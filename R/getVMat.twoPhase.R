@@ -31,7 +31,7 @@
 ##'                             2,1,2,1,
 ##'                             1,2,1,2,
 ##'                             2,1,2,1)])
-##'   data.frame(Run, Ani, Tag, Trt)
+##'   data.frame(Run, Ani, Tag, Trt, stringsAsFactors = TRUE )
 ##' })
 ##' 
 ##'     blk.str1 = "Ani"

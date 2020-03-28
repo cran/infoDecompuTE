@@ -5,10 +5,22 @@
 \title{Summarize an Theoretical Analysis of Variance Model of Two-Phase
 Experiments}
 \usage{
-summaryAovTwoPhase(design.df, blk.str1, blk.str2, trt.str, var.comp = NA,
-  blk.contr = NA, trt.contr = NA, table.legend = FALSE, response = NA,
-  latex = FALSE, fixed.names = NA, decimal = FALSE, digits = 2,
-  list.sep = TRUE)
+summaryAovTwoPhase(
+  design.df,
+  blk.str1,
+  blk.str2,
+  trt.str,
+  var.comp = NA,
+  blk.contr = NA,
+  trt.contr = NA,
+  table.legend = FALSE,
+  response = NA,
+  latex = FALSE,
+  fixed.names = NA,
+  decimal = FALSE,
+  digits = 2,
+  list.sep = TRUE
+)
 }
 \arguments{
 \item{design.df}{a data frame containing the experimental design. Requires
@@ -95,7 +107,6 @@ effects and fixed effects are returned.
 }
 \examples{
 
-
 #Phase 2 experiment  
 design2 <- local({ 
   Run = as.factor(rep(1:4, each = 4))
@@ -109,7 +120,7 @@ design2 <- local({
                             2,1,2,1,
                             1,2,1,2,
                             2,1,2,1)])
-  data.frame(Run, Ani, Sam, Tag, Trt)
+  data.frame(Run, Ani, Sam, Tag, Trt, stringsAsFactors = TRUE)
 })
 design2
                                   
@@ -164,6 +175,7 @@ set.seed(527)
 summaryAovTwoPhase(design2, blk.str1 = "Ani/Sam", blk.str2 = "Run", 
 trt.str = "Tag + Trt", response = rnorm(16), latex = TRUE, 
 fixed.names = c("\\\\gamma", "\\\\tau") )                               
+
 
 }
 \references{

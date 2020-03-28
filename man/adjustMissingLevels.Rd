@@ -31,7 +31,7 @@ design.df = data.frame( Blk = factor(1:16),
                       	Trt = factor(c(	1,2,3,4,
                                       	1,2,3,4,
                                       	1,2,3,4,
-                                     		1,2,3,4)))
+                                     		1,2,3,4)), stringsAsFactors = TRUE )
  
 adjustMissingLevels(design.df, str.for = "Ani/Trt") 
 
